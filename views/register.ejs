@@ -1,0 +1,76 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    .signup-container {
+      width: 300px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 0 auto;
+      margin-top: 100px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .signup-container h2 {
+      text-align: center;
+    }
+
+    .signup-container input[type="text"],
+    .signup-container input[type="email"],
+    .signup-container input[type="password"],
+    .signup-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .signup-container input[type="submit"],
+    .signup-container input[type="button"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .signup-container input[type="submit"]:hover,
+    .signup-container input[type="button"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+<div class="signup-container">
+    <h1>Register</h1>
+
+    <form action="/register" method="post">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="sex">Sex:</label>
+            <select id="sex" name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other" selected>Other</option>
+            </select>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <a href="/login">Login</a>
+</div>

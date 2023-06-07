@@ -1,0 +1,79 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    .profile-container {
+      width: 300px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 0 auto;
+      margin-top: 100px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-container h2 {
+      text-align: center;
+    }
+
+    .profile-container .data-container {
+      margin-top: 20px;
+    }
+
+    .profile-container .data-container p {
+      margin-bottom: 10px;
+    }
+
+    .profile-container .button-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .profile-container .button-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .profile-container .button-container button:last-child {
+      margin-bottom: 0;
+    }
+
+    .profile-container .button-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+<div class="profile-container">
+    <h2>Your profile</h2>
+
+    <div class="data-container">
+        <p>Name: <b><%= name %></b></p>
+        <p>Email: <b><%= email %></b></p>
+        <p>Sex: <b><%= sex %></b></p>
+    </div>
+    
+    <div class="button-container">
+        <form action="/" method="get">
+            <button type="submit">Go home</button>
+        </form>
+
+        <form action="/developed" method="get">
+            <button type="submit">See developer</button>
+        </form>
+        
+        <form action="/logout?_method=DELETE" method="post">
+            <button type="submit">Logout</button>
+        </form>
+        
+        
+    </div>
+</div>

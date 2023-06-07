@@ -1,0 +1,62 @@
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f1f1f1;
+        }
+    
+        .login-container {
+          width: 300px;
+          background-color: #ffffff;
+          border-radius: 5px;
+          padding: 20px;
+          margin: 0 auto;
+          margin-top: 100px;
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        }
+    
+        .login-container h2 {
+          text-align: center;
+        }
+    
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+        }
+    
+        .login-container input[type="submit"] {
+          width: 100%;
+          padding: 10px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+        }
+    
+        .login-container input[type="submit"]:hover {
+          background-color: #45a049;
+        }
+      </style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <% if (messages.error) {%>
+        <%= messages.error %>
+        <% } %>
+    <form action="/login" method="post">
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <a href="/register">Register</a>
+</div>

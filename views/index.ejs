@@ -1,0 +1,63 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+
+    .welcome-container {
+      width: 300px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 0 auto;
+      margin-top: 100px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .welcome-container h2 {
+      text-align: center;
+    }
+
+    .welcome-container .button-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    .welcome-container .button-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .welcome-container .button-container button:last-child {
+      margin-bottom: 0;
+    }
+
+    .welcome-container .button-container button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+<div class="welcome-container">
+    <h1>Welcome, <%= name %></h1>
+
+    <div class="button-container">
+        <form action="/profile" method="get">
+            <button type="submit">See your profile</button>
+        </form>
+
+        <form action="/developed" method="get">
+            <button type="submit">See developer</button>
+        </form>
+
+        <form action="/logout?_method=DELETE" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</div>
