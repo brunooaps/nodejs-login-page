@@ -4,24 +4,15 @@ if (process.env.NODE_ENV != "production"){
 
 const express = require('express')
 const app = express()
-const bcrypt = require('bcrypt')
-const passport =require('passport')
+const passport = require('passport')
+const methodOverride = require('method-override')
+const mongoose = require('mongoose')
 const flash = require('express-flash')
 const session = require('express-session')
-const methodOverride = require('method-override')
-
-const initializePassport = require("./passport-config")
-
-initializePassport(
-    passport, 
-    email => users.find(user => user.email === email),
-    id => users.find(user => user.id === id)
-)
-
-const users = []
 
 app.set('view-engine', 'ejs')
-app.use(express.urlencoded({ extended: false}))
+app.use(express.urlencoded({ extended: true}))
+app.use(express.json())
 app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -33,74 +24,22 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
-//MAIN route
-app.get('/', checkAuthenticated, (req, res) => {
-    res.render('index.ejs', {name: req.user.name})
-})
+const registerRoutes = require('./routes/registerRoutes')
+const loginRoutes = require('./routes/loginRoutes')
+const routes = require('./routes/routes')
 
-app.get('/profile', checkAuthenticated, (req, res) => {
-    res.render('profile.ejs', {name: req.user.name, email: req.user.email, sex: req.user.sex})
-})
+app.use('/register', registerRoutes)
+app.use('/login', loginRoutes)
+app.use('', routes)
 
-app.get('/developed', checkAuthenticated, (req, res) => {
-    res.render('developed.ejs')
-})
+const DB_USER = process.env.DB_USER
+const DB_PASSWORD = process.env.DB_PASSWORD
 
-// LOGIN routes
-app.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
-})
+mongoose
+    .connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@apicluster.gnoxui6.mongodb.net/?retryWrites=true&w=majority`)
+    .then(() => {
+        app.listen(3000)
+        console.log(('mongoDB connected'))
+    })
+    .catch((err) => console.log(err))
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
-
-app.delete('/logout', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/login');
-    });
-  });
-
-
-//REGISTER routes
-app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
-})
-
-app.post('/register', checkNotAuthenticated, async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            id: Date.now().toString(),
-            name: req.body.name,
-            email: req.body.email,
-            sex: req.body.sex,
-            password: hashedPassword
-        })
-        res.redirect('/login')
-    } catch (error) {
-        res.redirect('/register')
-    }
-    console.log(users)
-})
-
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-
-    res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/')
-    }
-
-    next()
-}
-
-app.listen(3000)
