@@ -4,6 +4,7 @@ const User = mongoose.model('Peoples', {
     name: String,
     email: String,
     password: String,
+    sex: String,
     active: Boolean
 })
 

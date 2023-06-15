@@ -22,13 +22,6 @@ router.post('/', checkNotAuthenticated, passport.authenticate('local', {
     failureFlash: true
 }))
 
-router.delete('/logout', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/login');
-    });
-  });
-
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return res.redirect('/')
